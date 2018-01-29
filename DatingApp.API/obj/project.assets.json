@@ -3470,6 +3470,15 @@
           }
         }
       },
+      "System.IdentityModel.Tokens/5.0.0-beta8-210131116": {
+        "type": "package",
+        "compile": {
+          "lib/net451/System.IdentityModel.Tokens.dll": {}
+        },
+        "runtime": {
+          "lib/net451/System.IdentityModel.Tokens.dll": {}
+        }
+      },
       "System.IdentityModel.Tokens.Jwt/5.1.4": {
         "type": "package",
         "dependencies": {
@@ -9188,6 +9197,21 @@
         "system.globalization.extensions.nuspec"
       ]
     },
+    "System.IdentityModel.Tokens/5.0.0-beta8-210131116": {
+      "sha512": "TMDa85yh/+XuOhQX/EU+A++hgkTUCeOHmlEsVFr+nrec7EJZTIBvJMgAmpcMwOH/qW3zPWJkvBlW6tt0Wp4vGw==",
+      "type": "package",
+      "path": "system.identitymodel.tokens/5.0.0-beta8-210131116",
+      "files": [
+        "lib/dnx451/System.IdentityModel.Tokens.dll",
+        "lib/dnx451/System.IdentityModel.Tokens.xml",
+        "lib/dnxcore50/System.IdentityModel.Tokens.dll",
+        "lib/dnxcore50/System.IdentityModel.Tokens.xml",
+        "lib/net451/System.IdentityModel.Tokens.dll",
+        "lib/net451/System.IdentityModel.Tokens.xml",
+        "system.identitymodel.tokens.5.0.0-beta8-210131116.nupkg.sha512",
+        "system.identitymodel.tokens.nuspec"
+      ]
+    },
     "System.IdentityModel.Tokens.Jwt/5.1.4": {
       "sha512": "hLUU1N99aL9uyxiTraBnCKlpUKsbP/+5ygD7cswspH9/+M7fAAL0hRzt2aA4w7VEQlSSiu8j+xWFk3NRcqhfQQ==",
       "type": "package",
@@ -12529,7 +12553,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.0",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "System.IdentityModel.Tokens >= 5.0.0-beta8-210131116"
     ]
   },
   "packageFolders": {
@@ -12539,11 +12564,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pazdernik\\Documents\\GitHub\\DatingApp\\datingapp.api\\DatingApp.API.csproj",
+      "projectUniqueName": "c:\\Users\\pazdernik\\Documents\\GitHub\\DatingApp\\DatingApp.API\\DatingApp.API.csproj",
       "projectName": "DatingApp.API",
-      "projectPath": "C:\\Users\\pazdernik\\Documents\\GitHub\\DatingApp\\datingapp.api\\DatingApp.API.csproj",
+      "projectPath": "c:\\Users\\pazdernik\\Documents\\GitHub\\DatingApp\\DatingApp.API\\DatingApp.API.csproj",
       "packagesPath": "C:\\Users\\pazdernik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pazdernik\\Documents\\GitHub\\DatingApp\\datingapp.api\\obj\\",
+      "outputPath": "c:\\Users\\pazdernik\\Documents\\GitHub\\DatingApp\\DatingApp.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12581,6 +12606,10 @@
             "target": "Package",
             "version": "[2.0.0, )",
             "autoReferenced": true
+          },
+          "System.IdentityModel.Tokens": {
+            "target": "Package",
+            "version": "[5.0.0-beta8-210131116, )"
           }
         },
         "imports": [
@@ -12590,5 +12619,17 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.IdentityModel.Tokens 5.0.0-beta8-210131116' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "System.IdentityModel.Tokens",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    }
+  ]
 }
