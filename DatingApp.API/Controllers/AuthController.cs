@@ -7,6 +7,7 @@ using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DatingApp.API.Controllers
@@ -15,9 +16,11 @@ namespace DatingApp.API.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthRepository _repository;
+        private readonly IConfiguration _config;
 
-        public AuthController(IAuthRepository repository)
+        public AuthController(IAuthRepository repository, IConfiguration config)
         {
+            this._config = config;
             this._repository = repository;
         }
 
@@ -27,10 +30,10 @@ namespace DatingApp.API.Controllers
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
 
             // request validation
-            if (await _repository.UserExists(userForRegisterDto.UserName)) 
+            if (await _repository.UserExists(userForRegisterDto.UserName))
                 ModelState.AddModelError("Username", "Username already exists");
 
-            if(!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             // creating a new user
@@ -54,12 +57,11 @@ namespace DatingApp.API.Controllers
                 return Unauthorized();
 
             // generating JWT token
-
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("Super secret key");
+            var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] 
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                     new Claim(ClaimTypes.Name, userFromRepo.Username)
@@ -70,7 +72,7 @@ namespace DatingApp.API.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(new {tokenString});
+            return Ok(new { tokenString });
         }
 
     }
