@@ -1,16 +1,23 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DatingApp.API.Data
 {
     public class AuthRepository : IAuthRepository
     {
         private readonly DataContext _context;
+        private readonly IConfiguration _config;
 
-        public AuthRepository(DataContext context)
+        public AuthRepository(DataContext context, IConfiguration config)
         {
+            this._config = config;
             this._context = context;
         }
 
@@ -18,10 +25,10 @@ namespace DatingApp.API.Data
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
-            if(user == null)
+            if (user == null)
                 return null;
 
-            if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
             // Auth successful
@@ -48,6 +55,26 @@ namespace DatingApp.API.Data
             return await _context.Users.AnyAsync(x => x.Username == username) ? true : false;
         }
 
+        // generating JWT token which is sent to the client on login
+        public string GenerateJWTToken(int id, string username)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, id.ToString()),
+                    new Claim(ClaimTypes.Name, username)
+                }),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
+
         // Hashing new password during registering of the users
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -70,5 +97,6 @@ namespace DatingApp.API.Data
                 return true;
             }
         }
+
     }
 }
