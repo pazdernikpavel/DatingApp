@@ -27,7 +27,7 @@ export class AuthService {
 
   register(model: any) {
     return this.http
-      .post(this.baseUrl + "register", model, this.requestOptions());
+      .post(this.baseUrl + "register", model, this.requestOptions()).catch(this.handleError);
   }
 
   private requestOptions() {
@@ -36,19 +36,18 @@ export class AuthService {
   }
 
   private handleError(error: any) {
-    const applicationError = error.headers.get("Application-error");
+    const applicationError = error.headers.get('Application-Error');
     if (applicationError) return Observable.throw(applicationError);
 
     const serverError = error.json();
-    let modelStateErrors = "";
+    let modelStateErrors = '';
     if (serverError) {
       for (const key in serverError) {
         if (serverError[key]) {
-          modelStateErrors += serverError[key] + "\n";
+          modelStateErrors += serverError[key] + '\n';
         }
       }
     }
-
-    return Observable.throw(modelStateErrors || "Server error");
+    return Observable.throw(modelStateErrors || 'Server error');
   }
 }
