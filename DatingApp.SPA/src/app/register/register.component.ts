@@ -3,8 +3,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AlertifyService } from '../_services/alertify.service';
 
 
-
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -24,7 +22,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.model).subscribe(() => {
       this.alertifyService.success("Registration was successful.");
     }), error => {
-      this.alertifyService.error(error);
+      this.alertifyService.success("ddd");
     };
   }
 

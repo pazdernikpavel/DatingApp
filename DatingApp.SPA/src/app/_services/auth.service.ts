@@ -10,7 +10,7 @@ export class AuthService {
   baseUrl = "http://localhost:5000/api/auth/";
   userToken: any;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   login(model: any) {
     return this.http
@@ -21,8 +21,7 @@ export class AuthService {
           localStorage.setItem("token", user.tokenString);
           this.userToken = user.tokenString;
         }
-      })
-      .catch(this.handleError);
+      });
   }
 
   register(model: any) {
