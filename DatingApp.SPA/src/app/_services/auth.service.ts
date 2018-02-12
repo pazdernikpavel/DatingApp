@@ -21,7 +21,7 @@ export class AuthService {
           localStorage.setItem("token", user.tokenString);
           this.userToken = user.tokenString;
         }
-      });
+      }).catch(this.handleError);
   }
 
   register(model: any) {
