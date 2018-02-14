@@ -1,3 +1,5 @@
+import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { AuthModule } from './auth/auth.module';
 import { appRoutes } from './routes';
 import { BrowserModule } from '@angular/platform-browser';
@@ -5,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { NgxGalleryModule } from 'ngx-gallery';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -41,13 +44,16 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
-    AuthModule
+    AuthModule,
+    NgxGalleryModule
   ],
   providers: [
     AuthService,
     UserService,
     AlertifyService,
-    AuthGuard
+    AuthGuard,
+    MemberDetailResolver,
+    MemberListResolver
   ],
   bootstrap: [AppComponent]
 })
