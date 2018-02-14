@@ -1,6 +1,5 @@
 import { Observable } from 'rxjs/Observable';
 import { User } from './../_models/User';
-import { Observable } from 'rxjs/Observable';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import "rxjs/add/operator/map";
