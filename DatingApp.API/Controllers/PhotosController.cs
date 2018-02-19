@@ -5,6 +5,7 @@ using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using DatingApp.API.Data;
+using DatingApp.API.Dtos;
 using DatingApp.API.Helpers;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -38,6 +39,16 @@ namespace DatingApp.API.Controllers
             );
 
             _cloudinary = new Cloudinary(acc);
+        }
+
+        [HttpGet("{id}", Name = "GetPhoto")]
+        public async Task<IActionResult> GetPhoto(int id)
+        {
+            var photoFromRepo = await _repository.GetPhoto(id);
+
+            var photo = _mapper.Map<PhotoForReturnDto>(photoFromRepo);
+
+            return Ok(photo);
         }
 
         [HttpPost]
@@ -81,9 +92,11 @@ namespace DatingApp.API.Controllers
 
             user.Photos.Add(photo);
 
+            var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
+
             if (await _repository.SaveAll())
             {
-                return Ok();
+                return CreatedAtRoute("GetPhoto", new { id = photo.Id }, photoToReturn);
             }
 
             return BadRequest("Could not add the photo");

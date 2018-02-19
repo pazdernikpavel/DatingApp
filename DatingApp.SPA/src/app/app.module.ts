@@ -26,6 +26,8 @@ import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload/file-upload/file-upload.module';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
     MessagesComponent,
     MemberCardComponent,
     MemberDetailComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
 ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     AuthModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    FileUploadModule
   ],
   providers: [
     AuthService,
