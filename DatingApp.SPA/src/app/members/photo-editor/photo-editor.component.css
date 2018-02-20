@@ -11,3 +11,11 @@ img.thumbnail {
 input[type=file] {
   color: transparent;
 }
+
+.row.uploader {
+  margin-top: 50px;
+}
+
+.image-block {
+  padding: 10px;
+}
