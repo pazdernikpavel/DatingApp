@@ -1,3 +1,4 @@
+import { AuthService } from './../../_services/auth.service';
 import { User } from './../../_models/User';
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
@@ -9,6 +10,7 @@ import { Input } from '@angular/core';
 })
 export class MemberCardComponent implements OnInit {
   @Input() user: User;
+  defaultPhoto = '../../../assets/user.png';
 
   constructor() { }
 

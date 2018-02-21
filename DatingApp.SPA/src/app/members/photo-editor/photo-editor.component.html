@@ -3,8 +3,8 @@
     <img class="thumbnail" src="{{photo.url}}" alt="">
     <div class="text-center">
       <button type="button" class="btn btn-success btn-xs" *ngIf="photo.isMain" [disabled]="photo.isMain">Your Main</button>
-      <button type="button" class="btn btn-xs" *ngIf="!photo.isMain" (click)="setMainPhoto()">Set Main</button>
-      <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
+      <button type="button" class="btn btn-xs" *ngIf="!photo.isMain" (click)="setMainPhoto(photo)">Set Main</button>
+      <button type="button" class="btn btn-danger btn-xs" (click)="deletePhoto(photo.id)" [disabled]="photo.isMain"><i class="fa fa-trash-o"></i></button>
     </div>
   </div>
 </div>

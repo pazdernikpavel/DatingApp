@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using DatingApp.API.Models;
@@ -15,16 +16,18 @@ namespace DatingApp.API.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthRepository _repository;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository repository)
+        public AuthController(IAuthRepository repository, IMapper mapper)
         {
+            this._mapper = mapper;
             this._repository = repository;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]UserForRegisterDto userForRegisterDto)
         {
-            
+
             // request validation            
             if (!string.IsNullOrEmpty(userForRegisterDto.Username))
                 userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
@@ -58,7 +61,9 @@ namespace DatingApp.API.Controllers
             // generating JWT token with 24hour expiration
             var tokenString = _repository.GenerateJWTToken(userFromRepo.Id, userFromRepo.Username);
 
-            return Ok(new { tokenString });
+            var user = _mapper.Map<UserForListDto>(userFromRepo);
+
+            return Ok(new { tokenString, user });
         }
 
     }
