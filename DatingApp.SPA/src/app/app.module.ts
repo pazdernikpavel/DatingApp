@@ -7,7 +7,7 @@ import { appRoutes } from './routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { RouterModule } from '@angular/router';
@@ -53,7 +53,8 @@ import { FileUploadModule } from 'ng2-file-upload/file-upload/file-upload.module
     RouterModule.forRoot(appRoutes),
     AuthModule,
     NgxGalleryModule,
-    FileUploadModule
+    FileUploadModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
