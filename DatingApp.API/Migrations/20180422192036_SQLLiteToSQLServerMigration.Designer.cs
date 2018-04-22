@@ -11,14 +11,15 @@ using System;
 namespace DatingApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180213121224_RemoveValueModel")]
-    partial class RemoveValueModel
+    [Migration("20180422192036_SQLLiteToSQLServerMigration")]
+    partial class SQLLiteToSQLServerMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
                 {
@@ -30,6 +31,8 @@ namespace DatingApp.API.Migrations
                     b.Property<string>("Description");
 
                     b.Property<bool>("IsMain");
+
+                    b.Property<string>("PublicId");
 
                     b.Property<string>("Url");
 
@@ -57,11 +60,15 @@ namespace DatingApp.API.Migrations
 
                     b.Property<string>("Gender");
 
+                    b.Property<string>("Interests");
+
                     b.Property<string>("Introduction");
 
                     b.Property<string>("KnownAs");
 
                     b.Property<DateTime>("LastActive");
+
+                    b.Property<string>("LookingFor");
 
                     b.Property<byte[]>("PasswordHash");
 
